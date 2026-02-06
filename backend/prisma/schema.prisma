@@ -1,0 +1,27 @@
+// This is your database blueprint
+datasource db {
+  provider = "postgresql" // or "mongodb" depending on what you chose
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Job {
+  id          Int      @id @default(autoincrement())
+  title       String
+  company     String
+  location    String
+  salary      String
+  description String
+  createdAt   DateTime @default(now())
+}
+
+model Application {
+  id        Int      @id @default(autoincrement())
+  jobId     Int
+  jobTitle  String
+  status    String   @default("Pending")
+  appliedAt DateTime @default(now())
+}
